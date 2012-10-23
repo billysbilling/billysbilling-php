@@ -8,3 +8,4 @@ if (!function_exists("json_decode")) {
 
 require(dirname(__FILE__) . "/Billy/Client.php");
 require(dirname(__FILE__) . "/Billy/Exception.php");
+require(dirname(__FILE__) . "/Billy/Request.php");
