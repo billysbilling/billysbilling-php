@@ -39,11 +39,28 @@ class Billy_Request {
         }
         // URL including API version and sub-address
         curl_setopt($ch, CURLOPT_URL, "https://api.billysbilling.dk/" . $this->apiVersion . "/" . $address);
-        $response = curl_exec($ch);
+        $rawResponse = curl_exec($ch);
         curl_close($ch);
 
         // Return response array
-        return json_decode($response);
+        return $this->interpretResponse($rawResponse);
+    }
+
+    /**
+     * Takes a raw JSON response and decodes it. If an error is met, throw an exception. Else return array.
+     *
+     * @param string $rawResponse JSON encoded array
+     *
+     * @return array Response from Billy API, e.g. id and success or invoice object
+     * @throws Billy_Exception Error, Help URL and response
+     */
+    private function interpretResponse($rawResponse) {
+        $response = json_decode($rawResponse);
+        if (!$response->success) {
+            throw new Billy_Exception($response->error, $response->helpUrl, $rawResponse);
+        }
+
+        return $response;
     }
 
 }
