@@ -52,4 +52,4 @@ $response = $client->post("contacts", array(
 echo $response->id;
 ```
 
-It might be preferred to use `require(dirname(__FILE__) . "billysbilling-php/bootstrap.php");' to include the SDK in a relative path to the current file.
+It might be preferred to use `require(dirname(__FILE__) . "billysbilling-php/bootstrap.php");` to include the SDK in a relative path to the current file.
