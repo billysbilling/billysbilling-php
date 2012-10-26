@@ -9,6 +9,10 @@ Download code and include bootstrap.php; example using require():
 ```
 require("path/to/billysbilling-php/bootstrap.php");
 ```
+It might be preferable to use a relative path from the current file to include the SDK, especially when using the SDK in a module or extension:
+```
+require(dirname(__FILE__) . "/path/to/billysbilling-php/bootstrap.php");
+```
 
 ##Examples
 Include the bootstrap file, instantiate the Client class, retrieve all invoices and print out a list of invoice IDs.
@@ -51,5 +55,3 @@ $response = $client->post("contacts", array(
 
 echo $response->id;
 ```
-
-It might be preferred to use `require(dirname(__FILE__) . "billysbilling-php/bootstrap.php");` to include the SDK in a relative path to the current file.
