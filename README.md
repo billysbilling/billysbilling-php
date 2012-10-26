@@ -52,4 +52,4 @@ $response = $client->post("contacts", array(
 echo $response->id;
 ```
 
-_By the way don't bother trying the API key, it is simply the MD5 hash of "Billy is awesome"._ ;-)
+It might be preferred to use `require(dirname(__FILE__) . "billysbilling-php/bootstrap.php");' to include the SDK in a relative path to the current file.
