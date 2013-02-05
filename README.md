@@ -35,7 +35,7 @@ require("billysbilling-php/bootstrap.php");
 
 $client = new Billy_Client("054280dbff08bf095fd08683dce80aed");
 
-$invoice = $client->post("invoices/55023-NBgG9CFInhPGMP");
+$invoice = $client->get("invoices/55023-NBgG9CFInhPGMP");
 echo $invoice->amount . "\n";
 echo $invoice->vat;
 ```
