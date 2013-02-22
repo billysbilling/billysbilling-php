@@ -41,4 +41,27 @@ class Billy_Client {
         return $this->request->call("POST", $address, $params);
     }
 
+    /**
+     * Run a fake GET request.
+     *
+     * @param string $address Sub-address to call, e.g. invoices or invoices/ID_NUMBER
+     *
+     * @return array Response from Billy API, e.g. invoice object
+     */
+    public function fakeGet($outputFile, $address) {
+        return $this->request->fakeCall($outputFile, "GET", $address);
+    }
+
+    /**
+     * Run a fake POST request.
+     *
+     * @param string $address Sub-address to call, e.g. invoices or contacts
+     * @param array $params Parameters to be sent to Billy API on the specified address
+     *
+     * @return array Response from Billy API, e.g. id and success
+     */
+    public function fakePost($outputFile, $address, $params) {
+        return $this->request->fakeCall($outputFile, "POST", $address, $params);
+    }
+
 }

@@ -47,6 +47,40 @@ class Billy_Request {
     }
 
     /**
+     * Run a fake custom request.
+     *
+     * @param string $method Either GET or POST
+     * @param string $address Sub-address to call, e.g. invoices or invoices/ID_NUMBER
+     * @param OPTIONAL array $params Parameters to be sent to Billy API on the specified address
+     *
+     * @return array Response from Billy API, e.g. id and success or invoice object
+     */
+    public function fakeCall($outputFile, $method, $address, $params = null) {
+        $call = array(
+            "mode" => $method,
+            "address" => $address
+        );
+        if ($params) {
+            $call["params"] = $params;
+        }
+
+        $handle = fopen($outputFile, "a");
+        fwrite($handle, json_encode($call) . "\n");
+        fclose($handle);
+
+        $response = new StdClass();
+        if ($method == "POST") {
+            $response->id = "12345-ABCDEFGHIJKLMNOP";
+            $response->success = true;
+        } else {
+            $addressParts = explode("?", $address);
+            $type = $addressParts[0];
+            $response->$type = array();
+        }
+        return $response;
+    }
+
+    /**
      * Takes a raw JSON response and decodes it. If an error is met, throw an exception. Else return array.
      *
      * @param string $rawResponse JSON encoded array
