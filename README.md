@@ -55,3 +55,27 @@ $response = $client->post("contacts", array(
 
 echo $response->id;
 ```
+
+Include the bootstrap file, instantiate the Client class, update a contact and print contact ID.
+```
+<?php
+require("billysbilling-php/bootstrap.php");
+
+$client = new Billy_Client("054280dbff08bf095fd08683dce80aed");
+
+$response = $client->put("contacts/55023-NBgG9CFInhPGMP", array(
+  "name" => "John"
+));
+echo $response->id;
+```
+
+Include the bootstrap file, instantiate the Client class, delete a contact and print contact ID.
+```
+<?php
+require("billysbilling-php/bootstrap.php");
+
+$client = new Billy_Client("054280dbff08bf095fd08683dce80aed");
+
+$response = $client->delete("contacts/55023-NBgG9CFInhPGMP");
+echo $response->id;
+```
