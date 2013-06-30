@@ -19,11 +19,11 @@ class Billy_Request {
      * Run a custom request on Billy API on a specific address with possible parameters and receive a response array as
      * return.
      *
-     * @param string $method Either GET or POST
+     * @param string $method Either GET, POST, PUT or DELETE
      * @param string $address Sub-address to call, e.g. invoices or invoices/ID_NUMBER
-     * @param OPTIONAL array $params Parameters to be sent to Billy API on the specified address
+     * @param null $params Parameters to be sent to Billy API on the specified address
      *
-     * @return array Response from Billy API, e.g. id and success or invoice object
+     * @return StdClass Response from Billy API, e.g. id and success or invoice object
      */
     public function call($method, $address, $params = null) {
         $ch = curl_init();
@@ -34,7 +34,7 @@ class Billy_Request {
         // Request method
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
         // POST parameters
-        if ($method == "POST" && $params != null) {
+        if (($method == "POST" || $method == "PUT") && $params != null) {
             curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($params));
         }
         // URL including API version and sub-address
@@ -49,11 +49,12 @@ class Billy_Request {
     /**
      * Run a fake custom request.
      *
-     * @param string $method Either GET or POST
+     * @param string $outputFile The file used to print responses
+     * @param string $method Either GET, POST, PUT or DELETE
      * @param string $address Sub-address to call, e.g. invoices or invoices/ID_NUMBER
-     * @param OPTIONAL array $params Parameters to be sent to Billy API on the specified address
+     * @param null $params Parameters to be sent to Billy API on the specified address
      *
-     * @return array Response from Billy API, e.g. id and success or invoice object
+     * @return StdClass Response from Billy API, e.g. id and success or invoice object
      */
     public function fakeCall($outputFile, $method, $address, $params = null) {
         $call = array(
