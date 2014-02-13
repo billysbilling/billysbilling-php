@@ -1,8 +1,10 @@
 #Billy's Billing PHP SDK
 
-PHP SDK for [Billy's Billing API](http://dev.billysbilling.dk/) from the Danish accounting program [Billy's Billing](http://www.billysbilling.dk/).
+PHP SDK for [Billy's Billing API](http://dev.billysbilling.dk/) version 1 only from the Danish accounting program [Billy's Billing](http://www.billysbilling.dk/).
 
 Read [API Terms](https://dev.billysbilling.dk/api-terms) before use. For further information, see [API Docs](https://dev.billysbilling.dk/api).
+
+**Note:** This SDK only works with API v1. We have a new SDK in the works for v2. See also [v2 documentation](https://gist.github.com/sebastianseilund/7478452).
 
 ##Installation
 Download code and include bootstrap.php; example using require():
