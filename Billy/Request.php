@@ -26,19 +26,26 @@ class Billy_Request {
      * @return StdClass Response from Billy API, e.g. id and success or invoice object
      */
     public function call($method, $address, $params = null) {
+        $headers = array();
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         // Authentication
-        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-        curl_setopt($ch, CURLOPT_USERPWD, $this->apiKey . ":");
+        if ($this->apiVersion === "v1") {
+            curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+            curl_setopt($ch, CURLOPT_USERPWD, $this->apiKey . ":");
+        } else {
+            $headers[] = "X-Access-Token: " . $this->apiKey;
+        }
         // Request method
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
         // POST parameters
         if (($method == "POST" || $method == "PUT") && $params != null) {
             curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($params));
+            $headers[] = "Content-Type: application/json";
         }
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         // URL including API version and sub-address
-        curl_setopt($ch, CURLOPT_URL, "https://api.billysbilling.dk/" . $this->apiVersion . "/" . $address);
+        curl_setopt($ch, CURLOPT_URL, "https://api.billysbilling." . ($this->apiVersion === "v1" ? "dk" : "com") . "/" . $this->apiVersion . "/" . $address);
         $rawResponse = curl_exec($ch);
         curl_close($ch);
 
@@ -91,7 +98,8 @@ class Billy_Request {
      */
     private function interpretResponse($rawResponse) {
         $response = json_decode($rawResponse);
-        if (!$response->success) {
+        $success = $this->apiVersion === "v1" ? $response->success : $response->meta->success;
+        if (!$success) {
             throw new Billy_Exception($response->error, $response->helpUrl, $rawResponse);
         }
 

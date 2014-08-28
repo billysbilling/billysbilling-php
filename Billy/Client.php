@@ -7,13 +7,13 @@ class Billy_Client {
      * Construct a Billy Client with an API key and optionally an API version.
      *
      * @param string $apiKey API key from Billy
-     * @param string $apiVersion Optional (currently v1)
+     * @param string $apiVersion Optional (default is v2)
      *
      * @throws Billy_Exception
      */
-    public function __construct($apiKey, $apiVersion = "v1") {
-        // Only accept a string of 32 characters containing only lowercase and uppercase letters and numbers
-        if (!preg_match("/^([a-zA-Z0-9]{32})/", $apiKey)) {
+    public function __construct($apiKey, $apiVersion = "v2") {
+        // Only accept a string characters (32 for v1, 40 for v2) containing only lowercase and uppercase letters and numbers
+        if (($apiVersion === "v1" && !preg_match("/^([a-zA-Z0-9]{32})/", $apiKey)) || ($apiVersion === "v2" && !preg_match("/^([a-zA-Z0-9]{40})/", $apiKey))) {
             throw new Billy_Exception("Billy has encountered an invalid API key");
         }
 
