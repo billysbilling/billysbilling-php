@@ -4,7 +4,7 @@ PHP SDK for [Billy's Billing API](http://dev.billysbilling.dk/) version 1 only f
 
 Read [API Terms](https://dev.billysbilling.dk/api-terms) before use. For further information, see [API Docs](https://dev.billysbilling.dk/api).
 
-**Note:** This SDK only works with API v1. We have a new SDK in the works for v2. See also [v2 documentation](https://gist.github.com/sebastianseilund/7478452).
+**Note:** This SDK only works with API v1. For v2 you can use this [PHP SDK for v2](https://github.com/lsolesen/billysbilling).
 
 ##Installation
 Download code and include bootstrap.php; example using require():
